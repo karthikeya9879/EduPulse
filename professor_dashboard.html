@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Professor Dashboard{% endblock %}
+
+{% block content %}
+<div class="w-full max-w-4xl">
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">Welcome, {{ professor.name }}!</h2>
+            <p class="text-gray-600">Here is the feedback for your courses.</p>
+        </div>
+        <a href="{{ url_for('logout') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Logout</a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+            <h3 class="text-lg font-medium text-gray-500">Overall Average Rating</h3>
+            <p class="text-4xl font-bold text-indigo-600 mt-2">{{ average_rating }} / 5</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+            <h3 class="text-lg font-medium text-gray-500">Total Feedbacks Received</h3>
+            <p class="text-4xl font-bold text-indigo-600 mt-2">{{ total_feedback }}</p>
+        </div>
+    </div>
+
+    <!-- AI Summary Section -->
+    <div id="ai-summary-section" class="bg-white p-6 rounded-xl shadow-lg mb-8">
+        <div class="flex justify-between items-center">
+            <h3 class="text-xl font-bold text-gray-800">Feedback from Students</h3>
+            {% if feedback_list %}
+            <button id="summarize-btn" data-professor-id="{{ professor_id }}" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">
+                Generate Summary
+            </button>
+            {% endif %}
+        </div>
+        <div id="summary-container" class="mt-4 text-gray-600 prose">
+             <!-- The AI summary will be injected here by JavaScript -->
+             {% if not feedback_list %}
+                <p class="text-center text-gray-500 py-8">You have not received any feedback yet.</p>
+             {% else %}
+                <p>Click the button to generate a constructive summary of your feedback.</p>
+             {% endif %}
+        </div>
+    </div>
+
+    <!-- The individual feedback list has been removed from this page. -->
+
+</div>
+
+<!-- Link to our new JavaScript file -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}Give Feedback{% endblock %}
+
+{% block content %}
+<div class="w-full max-w-lg">
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-center text-gray-800">Feedback for {{ course_name }}</h2>
+        <p class="text-center text-gray-500 mt-1">Taught by: {{ professor_name }}</p>
+
+        <form method="POST" action="{{ url_for('submit_feedback') }}" class="mt-8 space-y-6">
+            <!-- Hidden input to send the course_id back to the server -->
+            <input type="hidden" name="course_id" value="{{ course_id }}">
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Your Rating</label>
+                <!-- Simple Star Rating -->
+                <div class="flex items-center justify-center space-x-2 text-3xl text-gray-300" id="star-rating">
+                    <span data-value="1" class="cursor-pointer hover:text-yellow-400 transition">&#9733;</span>
+                    <span data-value="2" class="cursor-pointer hover:text-yellow-400 transition">&#9733;</span>
+                    <span data-value="3" class="cursor-pointer hover:text-yellow-400 transition">&#9733;</span>
+                    <span data-value="4" class="cursor-pointer hover:text-yellow-400 transition">&#9733;</span>
+                    <span data-value="5" class="cursor-pointer hover:text-yellow-400 transition">&#9733;</span>
+                </div>
+                <!-- Hidden input to store the actual rating value -->
+                <input type="hidden" name="rating" id="rating-value" required>
+            </div>
+
+            <div>
+                <label for="comment" class="block text-sm font-medium text-gray-700">Your Anonymous Comment</label>
+                <textarea id="comment" name="comment" rows="4" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Be specific and constructive..."></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Submit Feedback
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="mt-4 text-center">
+        <a href="{{ url_for('student_dashboard') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">&larr; Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Simple JavaScript for the star rating functionality -->
+<script>
+    const stars = document.querySelectorAll('#star-rating span');
+    const ratingValue = document.getElementById('rating-value');
+    
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const value = parseInt(star.dataset.value);
+            ratingValue.value = value;
+            
+            stars.forEach((s, i) => {
+                if (i < value) {
+                    s.classList.add('text-yellow-400');
+                    s.classList.remove('text-gray-300');
+                } else {
+                    s.classList.remove('text-yellow-400');
+                    s.classList.add('text-gray-300');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

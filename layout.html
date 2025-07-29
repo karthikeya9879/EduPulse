@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- This script loads Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Updated to include 'Playfair Display' for headings and 'Inter' for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>{% block title %}EduPulse{% endblock %}</title>
+    <style>
+        /* Use the Inter font family for body text for readability */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* NEW: A bright, animated gradient background */
+            background: linear-gradient(-45deg, #f3e7e9, #e3eeff, #fde4e4, #d1f2eb);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite;
+        }
+        /* Use the more aesthetic 'Playfair Display' font for all headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Keyframes for the fade-in animation for page content */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* NEW: Keyframes for the background gradient animation */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Class to apply the fade-in animation to page content */
+        .page-content {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<!-- The default text color is dark for contrast with the bright background -->
+<body class="text-gray-800">
+    <!-- Added the 'page-content' class to this div to apply the animation -->
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 page-content">
+        <!-- The 'block content' is where the content of other pages will be injected. -->
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
