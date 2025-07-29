@@ -17,7 +17,7 @@ def get_ai_summary(comments):
     Analyzes comments using the Gemini API and returns a constructive summary.
     """
     
-    API_KEY = 'AIzaSyCiAhOMpdlhCvt4OvBeJ7CNDU42u03xo7U' 
+    API_KEY = 'Your API KEY' 
     
     # --- Check if the API key has been set ---
     if not API_KEY or API_KEY == 'YOUR_API_KEY_GOES_HERE':
